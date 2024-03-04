@@ -1,0 +1,59 @@
+﻿@model List<DataAccessLayer.Category>
+<style>
+    body {
+        background-color: lightgray;
+    }
+
+    .navbar-nav.flex-grow-1 {
+        display: none;
+    }
+
+    #right-nav {
+        display: block;
+    }
+
+    #cust-dash {
+        display: none;
+    }
+
+    table {
+        width: %;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #343a40;
+        color: white;
+    }
+
+    td {
+        background-color: #8faebd;
+    }
+</style>
+
+
+<h2>List of Categories</h2>
+
+<table>
+    <tr>
+        <th>Category ID</th>
+        <th>Category Name</th>
+    </tr>
+
+    @foreach(var category in Model)
+            {
+                <tr>
+                    <td>@category.CategoryId</td>
+                    <td>@category.CategoryName</td>
+                </tr>
+            }
+
+ 
+</table>

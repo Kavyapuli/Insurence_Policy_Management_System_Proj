@@ -1,0 +1,62 @@
+﻿@model UILayer.Models.PolicyModel
+<style>
+    body {
+        background-color: lightgray;
+    }
+
+    .navbar-nav.flex-grow-1 {
+        display: none;
+    }
+
+    #right-nav {
+        display: block;
+    }
+
+    #cust-dash {
+        display: none;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your existing head content remains unchanged -->
+</head>
+<body>
+    <h2>Add Policy</h2>
+
+    @using (Html.BeginForm("AddPolicy", "Policy", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <div>
+            <label for="PolicyNumber">Policy Number:</label>
+            @Html.TextBoxFor(model => model.PolicyNumber)
+            @Html.ValidationMessageFor(model => model.PolicyNumber)
+        </div>
+        <div>
+            <label for="Category">Policy Type:</label>
+            @Html.TextBoxFor(model => model.Category)
+            @Html.ValidationMessageFor(model => model.Category)
+        </div>
+        <div>
+            <label for="PolicyCategory">Policy Category:</label>
+            @Html.TextBoxFor(model => model.policycategory)
+            @Html.ValidationMessageFor(model => model.policycategory)
+        </div>
+        <div>
+            <label for="Price">Price:</label>
+            @Html.TextBoxFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    }
+</body>
+</html>
+
+
+

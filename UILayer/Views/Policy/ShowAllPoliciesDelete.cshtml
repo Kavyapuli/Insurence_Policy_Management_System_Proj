@@ -1,0 +1,91 @@
+﻿@model List<UILayer.Models.PolicyModel>
+
+@{
+    ViewBag.Title = "All Policies";
+}
+
+<style>
+    body {
+        background-color: lightgray
+    }
+
+    .navbar-nav.flex-grow-1 {
+        display: none;
+    }
+
+    #right-nav {
+        display: block;
+    }
+
+    #cust-dash {
+        display: none;
+    }
+
+    h2 {
+        color: black;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    td {
+        background-color: #8faebd;
+    }
+
+    .delete-link {
+        color: #e74c3c;
+        text-decoration: none;
+        font-weight: bold;
+        background-color: #fff;
+        border: 1px solid #e74c3c;
+        padding: 6px 12px;
+        border-radius: 4px;
+    }
+
+        .delete-link:hover {
+            color: #c0392b;
+            background-color: #f2dede;
+        }
+</style>
+
+<h2>All Policies</h2>
+
+<table class="table">
+    <tr class="heading-row">
+        <th style="background-color: #343a40;">Policy Number</th>
+        <th style="background-color: #343a40;">Date Of Creation</th>
+        <th style="background-color: #343a40;">Policy Category</th>
+        <th style="background-color: #343a40;">Policy Type</th>
+        <th style="background-color: #343a40;">Price</th>
+        <th style="background-color: #343a40;">Action</th>
+    </tr>
+
+    @foreach (var policy in Model)
+    {
+        <tr>
+            <td style="background-color: #8faebd;">@policy.PolicyNumber</td>
+            <td style="background-color: #8faebd;">@policy.DateOfCreation.ToString("yyyy-MM-dd")</td>
+            <td style="background-color: #8faebd;">@policy.Category</td>
+            <td style="background-color: #8faebd;">@policy.policycategory</td>
+            <td style="background-color: #8faebd;">@policy.Price</td>
+            <td style="background-color: #8faebd;">
+                @Html.ActionLink("Delete", "DeletePolicy", "Policy", new { policyNumber = policy.PolicyNumber }, new { @class = "delete-link" })
+            </td>
+        </tr>
+    }
+</table>
+
