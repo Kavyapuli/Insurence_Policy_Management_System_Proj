@@ -1,0 +1,34 @@
+﻿@model DataAccessLayer.Customer
+@{
+    ViewBag.Title = "Customer Details";
+}
+
+<h2>Customer Details</h2>
+
+<div>
+    <strong>Customer ID:</strong> @Html.DisplayFor(model => model.Id)
+</div>
+<div>
+    <strong>First Name:</strong> @Html.DisplayFor(model => model.FirstName)
+</div>
+<div>
+    <strong>Last Name:</strong> @Html.DisplayFor(model => model.LastName)
+</div>
+<div>
+    <strong>Email:</strong> @Html.DisplayFor(model => model.Email)
+</div>
+<div>
+    <strong>Phone Number:</strong> @Html.DisplayFor(model => model.PhoneNumber)
+</div>
+<div>
+    <strong>Username:</strong> @Html.DisplayFor(model => model.UserName)
+</div>
+<div>
+    <strong>Password:</strong> @Html.DisplayFor(model => model.Password)
+</div>
+<div>
+    <strong>RoleId:</strong> @Html.DisplayFor(model => model.RoleId)
+</div>
+
+
+@Html.ActionLink("Back to Customers", "GetAllCustomers", "Admin", null, new { @class = "btn btn-outline-primary" })

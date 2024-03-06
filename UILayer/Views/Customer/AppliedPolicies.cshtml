@@ -84,6 +84,33 @@
                     <td>@appliedPolicy.Price</td>
                     <td>@appliedPolicy.CustomerId</td>
                     <td>@appliedPolicy.StatusCode</td>
+                    @if (appliedPolicy.StatusCode == DataAccessLayer.PolicyStatus.Pending)
+                    {
+                        <td>
+                            <form method="post" action="CancelPolicy">
+                                <input type="hidden" name="appliedPolicyId" value="@appliedPolicy.AppliedPolicyId" />
+                                <input type="submit" value="Cancel" class="btn btn-outline-danger" />
+                            </form>
+                        </td>
+                    }
+                    else if (appliedPolicy.StatusCode == DataAccessLayer.PolicyStatus.Approved)
+                    {
+                        <td>
+                            <form method="post" action="Pay">
+                                <input type="hidden" name="appliedPolicyId" value="@appliedPolicy.AppliedPolicyId" />
+                                <input type="submit" value="Pay" class="btn btn-outline-success" />
+                            </form>
+                        </td>
+                    }
+                    else if (appliedPolicy.StatusCode == DataAccessLayer.PolicyStatus.Disapproved)
+                    {
+                        <td>
+                            <form method="post" action="CancelPolicy">
+                                <input type="hidden" name="appliedPolicyId" value="@appliedPolicy.AppliedPolicyId" />
+                                <input type="submit" value="Cancel" class="btn btn-outline-danger" />
+                            </form>
+                        </td>
+                    }
                 </tr>
             }
         }

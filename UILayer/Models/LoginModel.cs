@@ -14,5 +14,6 @@ namespace UILayer.Models
         [Required(ErrorMessage = "*Password is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public string CaptchaValue { get; internal set; }
     }
 }

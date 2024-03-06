@@ -17,7 +17,7 @@
     }
 
     table {
-        width: %;
+        width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
     }
@@ -52,6 +52,18 @@
                 <tr>
                     <td>@category.CategoryId</td>
                     <td>@category.CategoryName</td>
+                    <td>
+                        <!-- View button -->
+                        <a href="@Url.Action("ViewCategory", "Admin", new { id = category.CategoryId })" class="action-button view-button">View</a>
+                        <!-- Edit button -->
+                        <a href="@Url.Action("AddCategory", "Admin", new { id = category.CategoryId })" class="action-button edit-button">Add</a>
+
+                        <!-- Edit button -->
+                        <a href="@Url.Action("EditCategory", "Admin", new { id = category.CategoryId })" class="action-button edit-button">Edit</a>
+
+                        <!-- Delete button -->
+                        <a href="@Url.Action("DeleteCategory", "Admin", new { id = category.CategoryId })" class="action-button delete-button">Delete</a>
+                    </td>
                 </tr>
             }
 

@@ -50,6 +50,11 @@
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Email</th>
+        <th>PhoneNumber</th>
+        <th>UserName</th>
+        <th>Password</th>
+        <th>RoleId</th>
 
     </tr>
     @foreach (var customer in Model)
@@ -58,7 +63,22 @@
             <td>@customer.Id</td>
             <td>@customer.FirstName</td>
             <td>@customer.LastName</td>
+            <td>@customer.Email</td>
+            <td>@customer.PhoneNumber</td>
+            <td>@customer.UserName</td>
+            <td>@customer.Password</td>
+            <td>@customer.RoleId</td>
 
+            <td>
+                <!-- View button -->
+                <a href="@Url.Action("ViewCustomer", "Admin", new { id = customer.Id })" class="action-button view-button">View</a>
+
+                <!-- Edit button -->
+                <a href="@Url.Action("EditCustomer", "Admin", new { id = customer.Id })" class="action-button edit-button">Edit</a>
+
+                <!-- Delete button -->
+                <a href="@Url.Action("DeleteCustomer", "Admin", new { id = customer.Id })" class="action-button delete-button">Delete</a>
+            </td>
         </tr>
     }
 </table>

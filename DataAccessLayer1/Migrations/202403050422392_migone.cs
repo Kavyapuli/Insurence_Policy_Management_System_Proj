@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class firstmig : DbMigration
+    public partial class migone : DbMigration
     {
         public override void Up()
         {
@@ -122,15 +122,30 @@
                 .ForeignKey("dbo.Categories", t => t.Category_CategoryId)
                 .Index(t => t.Category_CategoryId);
             
+            CreateTable(
+                "dbo.FamilyMembers",
+                c => new
+                    {
+                        PersonId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Relation = c.String(),
+                        CustomerID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.PersonId)
+                .ForeignKey("dbo.Customers", t => t.CustomerID, cascadeDelete: true)
+                .Index(t => t.CustomerID);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.FamilyMembers", "CustomerID", "dbo.Customers");
             DropForeignKey("dbo.Policies", "Category_CategoryId", "dbo.Categories");
             DropForeignKey("dbo.AppliedPolicies", "CustomerId", "dbo.Customers");
             DropForeignKey("dbo.Customers", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.Answers", "QuestionSLNO", "dbo.Questions");
             DropForeignKey("dbo.Admins", "RoleId", "dbo.Roles");
+            DropIndex("dbo.FamilyMembers", new[] { "CustomerID" });
             DropIndex("dbo.Policies", new[] { "Category_CategoryId" });
             DropIndex("dbo.Customers", new[] { "RoleId" });
             DropIndex("dbo.Customers", "IX_UniqueEmpUserName");
@@ -140,6 +155,7 @@
             DropIndex("dbo.Admins", new[] { "RoleId" });
             DropIndex("dbo.Admins", "IX_UniqueAdminUserName");
             DropIndex("dbo.Admins", "IX_UniqueAdminEmail");
+            DropTable("dbo.FamilyMembers");
             DropTable("dbo.Policies");
             DropTable("dbo.Categories");
             DropTable("dbo.Customers");

@@ -8,6 +8,8 @@ using UILayer.Models;
 using System.Web.Security;
 using DataAccessLayer.Services;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Net;
 
 namespace UILayer.Controllers
 {
@@ -95,6 +97,30 @@ namespace UILayer.Controllers
                 context.Customers.Add(newcustomer);
                 context.SaveChanges();
 
+                MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", user.EmailAddress);
+                MM.Subject = "Account Registration Successfull";
+                MM.Body = "Dear Customer," + "\n\n" +
+                          "We are pleased to informed you that you registration request for SPARK Insurance Company has been successful!" + "\n\n\n" +
+                          $"Full Name :{user.FirstName} {user.LastName}" + "\n" +
+                          $"Email Id              :{user.EmailAddress}" + "\n" +
+                          $"Phone Number  :{user.PhoneNumber}" + "\n" +
+                          $"User Name          :{user.UserName}" + "\n" +
+                          $"Password           :{user.Password}" + "\n" +
+                          $"Registrastion Date {DateTime.Now}" + "\n\n\n\n" +
+                         "For further assistance, kindly contact our agents" + "\n\n" +
+                         "Puli Kavya    Contact Number:9988776655" + "\n" +
+                         "Suresh Reddy  Contact Number:6655998877" + "\n\n\n\n" +
+                         "Warm regards," + "\n" + "Spark and Allied Insurance Co.Ltd" + "\n" + "Hyderabad,Telangana";
+
+                MM.IsBodyHtml = false;
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
+                NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.Credentials = networkCredential;
+                smtpClient.Send(MM);
 
                 return RedirectToAction("Dashboard", "Customer");
             }
@@ -150,6 +176,29 @@ namespace UILayer.Controllers
                 };
                 context.Admins.Add(newadmin);
                 context.SaveChanges();
+                MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", user.EmailAddress);
+                MM.Subject = "Account Registration Successfull";
+                MM.Body = "Dear Employee," + "\n\n" +
+                          "We are pleased to informed you that you registration request for SPARK Insurance Company has been successful!" + "\n\n\n" +
+                          $"Full Name :{user.FirstName} {user.LastName}" + "\n" +
+                          $"Email Id              :{user.EmailAddress}" + "\n" +
+                          $"Phone Number  :{user.PhoneNumber}" + "\n" +
+                          $"User Name          :{user.UserName}" + "\n" +
+                          $"Password           :{user.Password}" + "\n" +
+                          "Role                     :Admin" + "\n" +
+                          $"Registrastion Date {DateTime.Now}" + "\n\n\n\n" +
+                        
+                         "Warm regards," +"\n"+ "Spark and Allied Insurance Co.Ltd"+"\n"+ "Hyderabad,Telangana";
+                         
+                MM.IsBodyHtml = false;
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
+                NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.Credentials = networkCredential;
+                smtpClient.Send(MM);
 
 
                 return RedirectToAction("Dashboard", "Admin");
@@ -173,13 +222,26 @@ namespace UILayer.Controllers
         }
         public ActionResult CustomerLogin()
         {
-            return View();
+            // Generate and store captcha value in session
+            var captchaValue = GenerateAlphanumericCaptcha();
+            Session["Captcha"] = captchaValue;
+            // Pass captcha value to the view
+            var user = new LoginModel();
+            user.CaptchaValue = captchaValue;
+            return View(user);
         }
         [HttpPost]
-        public ActionResult CustomerLogin(LoginModel loginView)
+        public ActionResult CustomerLogin(LoginModel loginView,string captchaInput)
         {
 
             var isCustomer = Authentication.VerifyCustomerCredentials(loginView.UserName, loginView.Password);
+            
+            // Validate captcha
+            if (!ValidateCaptcha(captchaInput))
+            {
+                ModelState.AddModelError("Captcha", "Captcha verification failed.");
+                return View(loginView);
+            }
 
             if (isCustomer)
             {
@@ -199,12 +261,25 @@ namespace UILayer.Controllers
         }
         public ActionResult AdminLogin()
         {
-            return View();
+            // Generate and store captcha value in session
+            var captchaValue = GenerateAlphanumericCaptcha();
+            Session["Captcha"] = captchaValue;
+            // Pass captcha value to the view
+            var user = new LoginModel();
+            user.CaptchaValue = captchaValue;
+            return View(user);
         }
         [HttpPost]
-        public ActionResult AdminLogin(LoginModel loginView)
+        public ActionResult AdminLogin(LoginModel loginView, string captchaInput)
         {
             var isAdmin = Authentication.VerifyAdminCredentials(loginView.UserName, loginView.Password);
+
+            // Validate captcha
+            if (!ValidateCaptcha(captchaInput))
+            {
+                ModelState.AddModelError("Captcha", "Captcha verification failed.");
+                return View(loginView);
+            }
 
             if (isAdmin)
             {
@@ -225,28 +300,8 @@ namespace UILayer.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CustomerResetPassword(ResetPasswordModel model)
+        public ActionResult CustomerResetPassword(ResetPasswordModel model,EmailProp emailProp)
         {
-            /* if (ModelState.IsValid)
-             {
-                 var user = customerRepository.GetCustomerByUserName(model.UserName);
-
-                 if (user == null)
-                 {
-                     ModelState.AddModelError(nameof(model.UserName), "Invalid username. Please enter a valid username.");
-                     return View(model);
-                 }
-                 else
-                 {
-                     user.Password = model.Password;
-                     customerRepository.customerSaveChanges();
-                 }
-
-                 TempData["SuccessMessage"] = "Password reset successfully. Please log in with your new password.";
-                 return RedirectToAction("CustomerLogin", "Validation");
-             }
-
-             return View(model);*/
             InsuranceDbContext dbContext = new InsuranceDbContext();
             if (ModelState.IsValid)
             {
@@ -260,6 +315,20 @@ namespace UILayer.Controllers
                 {
                     user.Password = model.Password;
                     dbContext.SaveChanges();
+                    MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", user.Email);
+                    MM.Subject = "Changing Password";
+                    MM.Body = " Your password has been chenged successfully..!!" + "\n\n\n" +
+                      $"Your New Password: {user.Password}" +"\n\n\n"+
+                    "Warm regards," + "\n" + "Spark and Allied Insurance Co.Ltd" + "\n" + "Hyderabad,Telangana";
+                    MM.IsBodyHtml = false;
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                    smtpClient.UseDefaultCredentials = true;
+                    smtpClient.Credentials = networkCredential;
+                    smtpClient.Send(MM);
                 }
                 TempData["SuccessMessage"] = "Password reset successfully. Please log in with your new password.";
                 return RedirectToAction("CustomerLogin", "Validation");
@@ -270,29 +339,8 @@ namespace UILayer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AdminResetPassword(ResetPasswordModel model)
+        public ActionResult AdminResetPassword(ResetPasswordModel model,EmailProp emailProp)
         {
-          /*  if (ModelState.IsValid)
-            {
-                var user = adminRepository.GetAdminByUserName(model.UserName);
-
-                if (user == null)
-                {
-                    ModelState.AddModelError(nameof(model.UserName), "Invalid username. Please enter a valid username.");
-                    return View(model);
-                }
-                else
-                {
-                    user.Password = model.Password;
-                    adminRepository.SaveAdminchanges();
-                }
-
-                TempData["SuccessMessage"] = "Password reset successfully. Please log in with your new password.";
-                return RedirectToAction("AdminLogin", "Validation");
-            }
-
-            return View(model);*/
-
             InsuranceDbContext dbContext = new InsuranceDbContext();
             if (ModelState.IsValid)
             {
@@ -306,6 +354,20 @@ namespace UILayer.Controllers
                 {
                     user.Password=model.Password;
                     dbContext.SaveChanges();
+                    MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", user.EmailAddress);
+                    MM.Subject = "Changing Password";
+                    MM.Body = " Your password has been chenged successfully..!!"+"\n\n\n" +
+                          $"Your New Password: {user.Password}" + "\n\n\n" +
+                    "Warm regards," + "\n" + "Spark and Allied Insurance Co.Ltd" + "\n" + "Hyderabad,Telangana";
+                    MM.IsBodyHtml = false;
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                    smtpClient.UseDefaultCredentials = true;
+                    smtpClient.Credentials = networkCredential;
+                    smtpClient.Send(MM);
                 }
                 TempData["SuccessMessage"] = "Password reset successfully. Please log in with your new password.";
                 return RedirectToAction("AdminLogin", "Validation");
@@ -333,6 +395,6 @@ namespace UILayer.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-     
+
     }
 }

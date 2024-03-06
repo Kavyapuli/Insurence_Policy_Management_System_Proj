@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer1;
 
 namespace DataAccessLayer
 {
@@ -34,5 +35,6 @@ namespace DataAccessLayer
         public DbSet<AppliedPolicy> AppliedPolicies { get; set; }
 
         public DbSet<Answers> Answers { get; set; }
+        public DbSet<FamilyMember> FamilyMembers { get; set; }
     }
 }

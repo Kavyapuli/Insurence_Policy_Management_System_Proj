@@ -1,0 +1,44 @@
+﻿@model DataAccessLayer.AppliedPolicy
+@{
+    ViewBag.Title = "Cancel Policy";
+}
+
+<h2>Cancel Policy</h2>
+
+<p>Are you sure you want to delete the following policy?</p>
+<div>
+    <strong>Applied Policy Id:</strong> @Model.AppliedPolicyId
+</div>
+<div>
+    <strong>Policy Number:</strong> @Model.PolicyNumber
+</div>
+
+<div>
+    <strong>Applied Date:</strong> @Model.AppliedDate.ToString("yyyy-MM-dd")
+</div>
+<div>
+    <strong>Category:</strong> @Model.Category
+</div>
+<div>
+    <strong>policycategory:</strong> @Model.policycategory
+</div>
+<div>
+    <strong>Price:</strong> @Model.Price
+</div>
+<div>
+    <strong>Customer ID:</strong> @Model.CustomerId
+</div>
+<div>
+    <strong>Status Code:</strong> @Model.StatusCode
+</div>
+
+@using (Html.BeginForm("ConfirmCancelPolicy", "Customer", FormMethod.Post))
+{
+   @* @Html.AntiForgeryToken()*@
+    @Html.HiddenFor(model => model.AppliedPolicyId)
+
+    <p>
+        <input type="submit" value="Confirm Delete" />
+        @Html.ActionLink("Cancel", "AppliedPolicies", "Customer")
+    </p>
+}

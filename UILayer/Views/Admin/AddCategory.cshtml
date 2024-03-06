@@ -1,0 +1,49 @@
+﻿@model DataAccessLayer.Category
+<style>
+    body {
+        background-color: lightgray;
+    }
+
+    .navbar-nav.flex-grow-1 {
+        display: none;
+    }
+
+    #right-nav {
+        display: block;
+    }
+
+    #cust-dash {
+        display: none;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your existing head content remains unchanged -->
+</head>
+<body>
+    <h2>Add Category</h2>
+
+    @using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        <div>
+            <label for="PolicyNumber">Category Id:</label>
+            @Html.TextBoxFor(model => model.CategoryId)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+        <div>
+            <label for="Category">Category Name:</label>
+            @Html.TextBoxFor(model => model.CategoryName)
+            @Html.ValidationMessageFor(model => model.CategoryName)
+        </div>
+     
+
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    }
+</body>
+</html>

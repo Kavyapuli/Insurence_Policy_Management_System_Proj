@@ -47,5 +47,6 @@ namespace DataAccessLayer
 
         public int RoleId { get; set; }
         public virtual Roles Role { get; set; }
+       
     }
 }

@@ -1,0 +1,28 @@
+﻿@model DataAccessLayer.Category
+
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<h3>Are you sure you want to delete this?</h3>
+
+
+
+<div>
+    <strong>Category ID:</strong> @Model.CategoryId
+</div>
+<div>
+    <strong>Category Name:</strong> @Model.CategoryName
+</div>
+
+@using (Html.BeginForm("DeleteCategory", "Admin", new { id = Model.CategoryId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    @Html.ActionLink("Back to Categories", "Categories", "Admin", null, new { @class = "btn btn-outline-primary" })
+}
+
+@Html.ActionLink("Cancel", "Categories")

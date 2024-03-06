@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using UILayer.Models;
@@ -152,5 +153,33 @@ namespace UILayer.Controllers
             ViewBag.CustomerId = customerId;
             return View(questions);
         }
+
+        public ActionResult CancelPolicy(int? AppliedPolicyId)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            if (AppliedPolicyId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AppliedPolicy category = context.AppliedPolicies.Find(AppliedPolicyId);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+        [HttpPost,ActionName("CancelPolicy")]
+     //   [ValidateAntiForgeryToken]
+        public ActionResult CancelPolicy(int AppliedPolicyId)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            AppliedPolicy category = context.AppliedPolicies.Find(AppliedPolicyId);
+            context.AppliedPolicies.Remove(category);
+            context.SaveChanges();
+            return RedirectToAction("AppliedPolicies");
+        }
+
+
+
     }
 }

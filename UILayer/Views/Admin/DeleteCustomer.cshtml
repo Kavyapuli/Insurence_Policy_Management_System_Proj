@@ -1,0 +1,43 @@
+﻿@model DataAccessLayer.Customer
+
+@{
+    ViewBag.Title = "Delete Customer";
+}
+
+<h2>Delete Customer</h2>
+
+<p>Are you sure you want to delete the following customer?</p>
+
+<div>
+    <strong>Customer ID:</strong> @Model.Id
+</div>
+<div>
+    <strong>First Name:</strong> @Model.FirstName
+</div>
+<div>
+    <strong>Last Name:</strong> @Model.LastName
+</div>
+<div>
+    <strong>Email:</strong> @Model.Email
+</div>
+<div>
+    <strong>PhoneNumber:</strong> @Model.PhoneNumber
+</div>
+<div>
+    <strong>UserName:</strong> @Model.UserName
+</div>
+<div>
+    <strong>Password:</strong> @Model.Password
+</div>
+<div>
+    <strong>RoleId:</strong> @Model.RoleId
+</div>
+@using (Html.BeginForm("DeleteCustomer", "Admin", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    @Html.ActionLink("Back to Customers", "GetAllCustomers", "Admin", null, new { @class = "btn btn-outline-primary" })
+}
+
+@Html.ActionLink("Cancel", "GetAllCustomers")

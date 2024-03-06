@@ -1,9 +1,12 @@
 ﻿using DataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using UILayer.Models;
 
 namespace UILayer.Controllers
@@ -57,7 +60,8 @@ namespace UILayer.Controllers
             }
         }
         public ActionResult PoliciesList()
-        {InsuranceDbContext context= new InsuranceDbContext();  
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
             if (Session["AdminUserId"] != null)
             {
                 // User is authenticated, proceed with the action
@@ -87,7 +91,8 @@ namespace UILayer.Controllers
         }
 
         public ActionResult AllAppliedPolicies()
-        {InsuranceDbContext context = new InsuranceDbContext();
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
             if (Session["AdminUserId"] != null)
             {
                 // User is authenticated, proceed with the action
@@ -123,7 +128,7 @@ namespace UILayer.Controllers
                 if (policy != null && policy.StatusCode == PolicyStatus.Pending)
                 {
                     policy.StatusCode = PolicyStatus.Approved;
-                   context.SaveChanges();
+                    context.SaveChanges();
                 }
                 return RedirectToAction("AllAppliedPolicies");
             }
@@ -155,7 +160,7 @@ namespace UILayer.Controllers
                 if (policy != null && policy.StatusCode == PolicyStatus.Pending)
                 {
                     policy.StatusCode = PolicyStatus.Disapproved;
-                    dbContext.SaveChanges();
+                    context.SaveChanges();
                 }
                 return RedirectToAction("AllAppliedPolicies");
             }
@@ -163,8 +168,10 @@ namespace UILayer.Controllers
             {
                 return RedirectToAction("AdminLogin", "Validation");
             }
+
+
         }
-        
+
         public ActionResult PendingPolicies()
         {
             InsuranceDbContext context = new InsuranceDbContext();
@@ -192,7 +199,8 @@ namespace UILayer.Controllers
         }
 
         public ActionResult Question()
-        {dbContext=new InsuranceDbContext();
+        {
+            dbContext = new InsuranceDbContext();
             if (Session["AdminUserId"] != null)
             {
                 var questions = dbContext.Questions.ToList();
@@ -227,7 +235,7 @@ namespace UILayer.Controllers
                 if (existingQuestion != null)
                 {
                     existingQuestion.Answer = model.Answer;
-                  context.SaveChanges();
+                    context.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
@@ -251,5 +259,208 @@ namespace UILayer.Controllers
 
             return Json(new { success = false, error = "Question not found" });
         }
+
+        //Customer
+        // delete customer details
+        public ActionResult DeleteCustomer(int? Id)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            var customer = context.Customers.Find(Id);
+            if (customer == null)
+            {
+                // Customer not found, handle accordingly (e.g., show error page)
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+
+        [HttpPost, ActionName("DeleteCustomer")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmDeleteCustomer(int Id)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            var customer = context.Customers.Find(Id);
+            if (customer == null)
+            {
+                // Customer not found, handle accordingly (e.g., show error page)
+                return HttpNotFound();
+            }
+            context.Customers.Remove(customer);
+            context.SaveChanges();
+            return RedirectToAction("GetAllCustomers");
+        }
+        //view customer details
+
+        public ActionResult ViewCustomer(int? Id)
+        {
+            // Retrieve the customer from the database based on the provided id
+            InsuranceDbContext context = new InsuranceDbContext();
+            var customer = context.Customers.Find(Id);
+
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
+
+        [HttpPost, ActionName("ViewCustomer")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ViewwCustomer(int Id)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            var customer = context.Customers.Find(Id);
+            if (customer == null)
+            {
+                // Customer not found, handle accordingly (e.g., show error page)
+                return HttpNotFound();
+            }
+
+            return RedirectToAction("GetAllCustomers");
+        }
+
+        public ActionResult EditCustomer(int? Id)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            if (Id== null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = context.Customers.Find(Id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCustomer([Bind(Include = "Id,FirstName,LastName,Email,PhoneNumber,UserName,Password,RoleId")] Customer customer)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            if (ModelState.IsValid)
+            {
+                context.Entry(customer).State = EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("GetAllCustomers");
+            }
+            return View(customer);
+        }
+
+
+        public ActionResult ViewCategory(int id)
+        {
+            // Retrieve the customer from the database based on the provided id
+            InsuranceDbContext context = new InsuranceDbContext();
+            var category = context.Categories.Find(id);
+
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category);
+        }
+
+
+        [HttpPost, ActionName("ViewCategory")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ViewwCategory(int id)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            var category = context.Categories.Find(id);
+            if (category == null)
+            {
+                // Customer not found, handle accordingly (e.g., show error page)
+                return HttpNotFound();
+            }
+
+            return RedirectToAction("Categories");
+        }
+
+
+        public ActionResult DeleteCategory(int? id)
+        {
+            InsuranceDbContext context=new InsuranceDbContext();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = context.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+        [HttpPost, ActionName("DeleteCategory")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCategory(int id)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            Category category = context.Categories.Find(id);
+            context.Categories.Remove(category);
+            context.SaveChanges();
+            return RedirectToAction("Categories");
+        }
+
+        public ActionResult EditCategory(int? id)
+        {
+            InsuranceDbContext context=new InsuranceDbContext();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = context.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategory([Bind(Include = "CategoryId,CategoryName")] Category category)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            if (ModelState.IsValid)
+            {
+                context.Entry(category).State = EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("Categories");
+            }
+            return View(category);
+        }
+
+        public ActionResult AddCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddCategory(Category category)
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            if (ModelState.IsValid)
+            {
+
+                Category newCategory = new Category
+                {
+                    CategoryId = category.CategoryId,
+                  CategoryName= category.CategoryName
+                };
+
+                context.Categories.Add(newCategory);
+                context.SaveChanges();
+
+                return RedirectToAction("Categories");
+            }
+
+            return View(category);
+        }
+
+      
     }
+
 }

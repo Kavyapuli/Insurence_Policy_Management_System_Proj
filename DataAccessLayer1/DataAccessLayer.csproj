@@ -60,11 +60,12 @@
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerInterface.cs" />
     <Compile Include="CustomerRepository.cs" />
+    <Compile Include="FamilyMember.cs" />
     <Compile Include="InsuranceCRUD.cs" />
     <Compile Include="InsuranceDbContext.cs" />
-    <Compile Include="Migrations\202403031106199_firstmig.cs" />
-    <Compile Include="Migrations\202403031106199_firstmig.designer.cs">
-      <DependentUpon>202403031106199_firstmig.cs</DependentUpon>
+    <Compile Include="Migrations\202403050422392_migone.cs" />
+    <Compile Include="Migrations\202403050422392_migone.designer.cs">
+      <DependentUpon>202403050422392_migone.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Policy.cs" />
@@ -78,8 +79,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202403031106199_firstmig.resx">
-      <DependentUpon>202403031106199_firstmig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403050422392_migone.resx">
+      <DependentUpon>202403050422392_migone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -90,6 +90,15 @@
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Captcha:</label>
+                <div class="col-md-8">
+                    <img id="captchaImage" src="@Url.Action("GenerateCaptchaImage", "Validation")" alt="Captcha Image" />
+                    <img id="refreshCaptchaButton" src="~/Content/Refresh.jpg" alt="Refresh Captcha" onclick="refreshCaptcha()" style="cursor: pointer; width: 20px; height: 20px;" />
+                    @Html.TextBox("captchaInput", null, new { @class = "form-control" })
+                    @Html.ValidationMessage("captchaInput")
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -111,3 +120,16 @@
     </div>
 </body>
 </html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+  function refreshCaptcha() {
+            // Get the captcha image element
+            var captchaImage = document.getElementById('captchaImage');
+            // Update the captcha image source to get a new captcha
+            captchaImage.src = '@Url.Action("GenerateCaptchaImage", "Validation")?' + new Date().getTime();
+            // Clear the previous captcha input value
+            document.getElementById('captchaInput').value = '';
+        }
+    </script>
+}
