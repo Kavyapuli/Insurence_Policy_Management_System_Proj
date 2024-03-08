@@ -1,4 +1,147 @@
-﻿@{
+﻿@*@{
+        Layout = "~/Views/Shared/AdminLayout.cshtml";
+    }
+
+    <style>
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                font-weight: bold;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 1px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .card {
+            width: 450px;
+            background-color: lightgray;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+        .card-title {
+            color: black;
+        }
+    </style>
+
+
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="@Url.Action("GetAllCustomers", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Registered Users </h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("PoliciesList", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Available Policies</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <br /> <br />
+
+        <div class="row">
+            <div class="col-md-6">
+                <a href="@Url.Action("Categories", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Availble Categories</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("Question", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Questions</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="@Url.Action("AllAppliedPolicies", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Applied Policy Holders</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("ApprovedPolicies", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Approved Policy Holders</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <br /> <br />
+
+        <div class="row">
+            <div class="col-md-6">
+                <a href="@Url.Action("DisapprovedPolicies", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Disapproved Policy Holders</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("PendingPolicies", "Admin")">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Policy Holders Waiting For Approval</h5>
+                            <br /> <br />
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>*@
+
+@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -25,12 +168,13 @@
     }
 
     .card {
-        width: 450px;
+        width: 100%;
         background-color: lightgray;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s ease-in-out;
         margin-bottom: 20px;
+        background-color: #124076;
     }
 
         .card:hover {
@@ -38,102 +182,139 @@
         }
 
     .card-title {
-        color: black;
+        color: #fff;
+    }
+
+    .icon_wrapper svg {
+        color: #fff;
     }
 </style>
 
 
 <div class="content">
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row row-gap-5">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("GetAllCustomers", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total registered User </h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("PoliciesList", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Listed Policies</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-file-earmark-ppt" viewBox="0 0 16 16">
+                                <path d="M7 5.5a1 1 0 0 0-1 1V13a.5.5 0 0 0 1 0v-2h1.188a2.75 2.75 0 0 0 0-5.5zM8.188 10H7V6.5h1.188a1.75 1.75 0 1 1 0 3.5" />
+                                <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-    </div>
-    <br /> <br />
-
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("Categories", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Listed Categories</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                                <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("Question", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total Questions</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-    </div>
-</div>
-
-<div class="content">
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("AllAppliedPolicies", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total Applied Policy Holder</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("ApprovedPolicies", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Approved Policy Holder</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill-check" viewBox="0 0 16 16">
+                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-    </div>
-    <br /> <br />
-
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("DisapprovedPolicies", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Disapproved Policy Holder</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill-x" viewBox="0 0 16 16">
+                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-4">
             <a href="@Url.Action("PendingPolicies", "Admin")">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Policy Holder Waiting For Approval</h5>
-                        <br /> <br />
+                        <br />
+                        <div class="icon_wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill-exclamation" viewBox="0 0 16 16">
+                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </a>

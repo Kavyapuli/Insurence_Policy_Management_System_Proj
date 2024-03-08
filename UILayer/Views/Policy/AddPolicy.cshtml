@@ -15,6 +15,35 @@
     #cust-dash {
         display: none;
     }
+
+    .form_wrapper {
+        max-width: 700px;
+        margin: 50px auto;
+        border-radius: 12px;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+        .form_wrapper form > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form_wrapper form input:not(.btn) {
+            background-color: transparent;
+            outline: none;
+            border: 1px solid;
+            width: 100%;
+            border-radius: 4px;
+            max-width: 100%;
+            padding: 7px 14px;
+        }
+
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
 </style>
 
 <!DOCTYPE html>
@@ -23,40 +52,53 @@
     <!-- Your existing head content remains unchanged -->
 </head>
 <body>
-    <h2>Add Policy</h2>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form_wrapper">
+                <h2 class="mb-3">Add Policy</h2>
 
-    @using (Html.BeginForm("AddPolicy", "Policy", FormMethod.Post))
-    {
-        @Html.ValidationSummary(true)
+                @using (Html.BeginForm("AddPolicy", "Policy", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
 
-        <div>
-            <label for="PolicyNumber">Policy Number:</label>
-            @Html.TextBoxFor(model => model.PolicyNumber)
-            @Html.ValidationMessageFor(model => model.PolicyNumber)
-        </div>
-        <div>
-            <label for="Category">Policy Type:</label>
-            @Html.TextBoxFor(model => model.Category)
-            @Html.ValidationMessageFor(model => model.Category)
-        </div>
-        <div>
-            <label for="PolicyCategory">Policy Category:</label>
-            @Html.TextBoxFor(model => model.policycategory)
-            @Html.ValidationMessageFor(model => model.policycategory)
-        </div>
-        <div>
-            <label for="Price">Price:</label>
-            @Html.TextBoxFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
+                    <div>
+                        <label for="PolicyNumber">Policy Number:</label>
+                        @Html.TextBoxFor(model => model.PolicyNumber)
+                        @Html.ValidationMessageFor(model => model.PolicyNumber)
+                    </div>
+                    <div>
+                        <label for="Category">Policy Type:</label>
+                        @Html.TextBoxFor(model => model.Category)
+                        @Html.ValidationMessageFor(model => model.Category)
+                    </div>
+                    <div>
+                        <label for="PolicyCategory">Policy Category:</label>
+                        @Html.TextBoxFor(model => model.policycategory)
+                        @Html.ValidationMessageFor(model => model.policycategory)
+                    </div>
+                    <div>
+                        <label for="Price">Price:</label>
+                        @Html.TextBoxFor(model => model.Price)
+                        @Html.ValidationMessageFor(model => model.Price)
+                    </div>
 
 
-        <div>
-            <input type="submit" value="Submit" />
+                    <div>
+                        <input type="submit" class="btn btn-success mt-3" value="Submit" />
+                    </div>
+                }
+            </div>
         </div>
-    }
+
+        <div class="col-md-4">
+            <div class="d-flex justify-content-center h-100">
+                <img class="mx-auto" src="https://cdn-icons-png.flaticon.com/512/2769/2769614.png" />
+
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 </html>
-
-
-

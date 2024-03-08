@@ -1,7 +1,10 @@
 ﻿@model List<DataAccessLayer.Category>
 <style>
     body {
-        background-color: lightgray;
+        background-color: #f0f4f7;
+        color: #333;
+        font-family: 'arial', sans-serif;
+        margin: 0;
     }
 
     .navbar-nav.flex-grow-1 {
@@ -20,27 +23,35 @@
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        background-color: #e0f7fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
+        border: 1px solid #b3e0f2;
+        padding: 12px 15px;
         text-align: left;
     }
 
     th {
-        background-color: #343a40;
-        color: white;
+        background-color: #5f5d9c;
+        color: #fff;
     }
 
     td {
-        background-color: #8faebd;
+        background-color: #b5c0d0;
+    }
+
+    tr:nth-child(even) {
+        background-color: #bbdefb;
     }
 </style>
 
 
 <h2>List of Categories</h2>
-
+<a href="@Url.Action("AddCategory", "Admin")" class="action-button btn btn-primary">Add</a>
 <table>
     <tr>
         <th>Category ID</th>
@@ -53,16 +64,12 @@
                     <td>@category.CategoryId</td>
                     <td>@category.CategoryName</td>
                     <td>
-                        <!-- View button -->
-                        <a href="@Url.Action("ViewCategory", "Admin", new { id = category.CategoryId })" class="action-button view-button">View</a>
-                        <!-- Edit button -->
-                        <a href="@Url.Action("AddCategory", "Admin", new { id = category.CategoryId })" class="action-button edit-button">Add</a>
+                      
+                        <a href="@Url.Action("ViewCategory", "Admin", new { id = category.CategoryId })" class="action-button btn btn-info">View</a>
+                    
+                        <a href="@Url.Action("EditCategory", "Admin", new { id = category.CategoryId })" class="action-button btn btn-warning">Edit</a>
 
-                        <!-- Edit button -->
-                        <a href="@Url.Action("EditCategory", "Admin", new { id = category.CategoryId })" class="action-button edit-button">Edit</a>
-
-                        <!-- Delete button -->
-                        <a href="@Url.Action("DeleteCategory", "Admin", new { id = category.CategoryId })" class="action-button delete-button">Delete</a>
+                        <a href="@Url.Action("DeleteCategory", "Admin", new { id = category.CategoryId })" class="action-button btn btn-danger">Delete</a>
                     </td>
                 </tr>
             }

@@ -4,11 +4,19 @@
     ViewBag.Title = "Login";
 }
 <style>
-    body, h2 {
+
+    body {
         font-family: 'Arial', sans-serif;
-        background-color: lightgray;
+        
+        background-image: url('../../content/backgr.jpg');
         margin: 0;
         padding: 0;
+        background-color: rgba(0,0,0,0.5);
+        background-blend-mode: overlay;
+        background-size: cover;
+        background-position: right;
+        min-height: 100vh;
+        background-repeat: no-repeat;
     }
 
     .container {
@@ -17,15 +25,11 @@
     }
 
     h2 {
-        color: #333;
+        color: #fff;
     }
 
     .form-horizontal {
         margin-top: 20px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .text-danger {
@@ -60,6 +64,17 @@
         .btn-default:hover {
             background-color: #45a049;
         }
+
+    .form-horizontal label {
+        color: #fff;
+    }
+
+    .form-horizontal input {
+        background-color: transparent;
+        outline: none;
+        border: 1px solid #fff;
+        color: #fff;
+    }
 </style>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <body>

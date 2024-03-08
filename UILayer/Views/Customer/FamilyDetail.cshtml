@@ -1,8 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "PoliciesList";
-}
-
+﻿@model IEnumerable<DataAccessLayer.FamilyMember>
 <style>
     body {
         background-color: #f0f4f7;
@@ -48,31 +44,34 @@
         background-color: #b5c0d0;
     }
 
-  
+    tr:nth-child(even) {
+        background-color: #bbdefb;
+    }
 </style>
 
-<h2>Policies List</h2>
+
+<h2>List of FamilyDetails</h2>
 
 <table>
     <tr>
-        <th>Policy Id</th>
-        <th>Policy Number</th>
-        <th>Date Of Creation</th>
-        <th>Policy Type</th>
-        <th>Policy Category</th>
-        <th>Price</th>
+        <th>PersonId</th>
+        <th>FamilyMember Name</th>
+        <th>Relation</th>
+        <th>CustomerID</th>
     </tr>
-    @foreach (var policy in Model)
+
+    @foreach (var familyMember in Model)
     {
         <tr>
-            <td>@policy.PolicyId</td>
-            <td>@policy.PolicyNumber</td>
-            <td>@policy.DateOfCreation.ToShortDateString()</td>
-            <td>@policy.Category</td>
-            <td>@policy.policycategory</td>
-            <td>@policy.Price</td>
+            <td>@familyMember.PersonId</td>
+            <td>@familyMember.Name</td>
+            <td>@familyMember.Relation</td>
+            <td>@familyMember.CustomerID</td>
+
+           
         </tr>
     }
-</table>
 
+
+</table>
 

@@ -63,9 +63,13 @@
     <Compile Include="FamilyMember.cs" />
     <Compile Include="InsuranceCRUD.cs" />
     <Compile Include="InsuranceDbContext.cs" />
-    <Compile Include="Migrations\202403050422392_migone.cs" />
-    <Compile Include="Migrations\202403050422392_migone.designer.cs">
-      <DependentUpon>202403050422392_migone.cs</DependentUpon>
+    <Compile Include="Migrations\202403061649272_secondmig.cs" />
+    <Compile Include="Migrations\202403061649272_secondmig.designer.cs">
+      <DependentUpon>202403061649272_secondmig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403061725180_thirdmig.cs" />
+    <Compile Include="Migrations\202403061725180_thirdmig.designer.cs">
+      <DependentUpon>202403061725180_thirdmig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Policy.cs" />
@@ -79,8 +83,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202403050422392_migone.resx">
-      <DependentUpon>202403050422392_migone.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403061649272_secondmig.resx">
+      <DependentUpon>202403061649272_secondmig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403061725180_thirdmig.resx">
+      <DependentUpon>202403061725180_thirdmig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

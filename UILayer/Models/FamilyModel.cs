@@ -1,15 +1,13 @@
 ﻿using DataAccessLayer;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace DataAccessLayer
+namespace UILayer.Models
 {
-    public class FamilyMember
+    public class FamilyModel
     {
         [Key]
         public int PersonId { get; set; }
@@ -21,5 +19,6 @@ namespace DataAccessLayer
         public int CustomerID { get; set; }
 
         public virtual Customer Customer { get; set; }
+
     }
 }

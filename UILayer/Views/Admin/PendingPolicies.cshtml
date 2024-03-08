@@ -4,7 +4,10 @@
 }
 <style>
     body {
-        background-color: lightgray;
+        background-color: #f0f4f7;
+        color: #333;
+        font-family: 'arial', sans-serif;
+        margin: 0;
     }
 
     .navbar-nav.flex-grow-1 {
@@ -19,42 +22,33 @@
         display: none;
     }
 
-    h2 {
-        color: black;
-    }
-
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
-        font-family: 'Times New Roman', Times, serif;
-        color: #333
+        background-color: #e0f7fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
+        border: 1px solid #b3e0f2;
+        padding: 12px 15px;
         text-align: left;
     }
 
     th {
-        background-color: #343a40;
-        color: white;
-    }
-
-    tbody tr:hover {
-        background-color: lightblue;
-    }
-
-    .status-pending {
-        background-color: #ffc107;
-        color: black;
-        padding: 10px 11px;
-        border-radius: 5px;
+        background-color: #5f5d9c;
+        color: #fff;
     }
 
     td {
-        background-color: #8faebd;
+        background-color: #b5c0d0;
+    }
+
+    tr:nth-child(even) {
+        background-color: #bbdefb;
     }
 </style>
 <h2>Pending Policies</h2>

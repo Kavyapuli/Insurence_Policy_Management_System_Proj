@@ -179,6 +179,32 @@ namespace UILayer.Controllers
             return RedirectToAction("AppliedPolicies");
         }
 
+        public ActionResult FamilyDetail()
+        {
+            InsuranceDbContext context = new InsuranceDbContext();
+            int customerId = Convert.ToInt32(Session["CustomerUserId"]);
+            if (customerId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                var fam = context.FamilyMembers.Find(customerId);
+                
+                if (fam != null)
+                {
+                    
+                    return View(new List<FamilyMember> { fam });
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+        }
+
+       
+
 
 
     }

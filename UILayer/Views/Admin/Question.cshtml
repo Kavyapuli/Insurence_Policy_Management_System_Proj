@@ -5,7 +5,10 @@
 
 <style>
     body {
-        background-color: lightgray;
+        background-color: #f0f4f7;
+        color: #333;
+        font-family: 'arial', sans-serif;
+        margin: 0;
     }
 
     .navbar-nav.flex-grow-1 {
@@ -20,80 +23,35 @@
         display: none;
     }
 
-    .replied {
-        color: green;
-    }
-
-    h2 {
-        color: black;
-    }
-
-    thead th {
-        background-color: #343a40;
-        color: #fff;
-        font-weight: bold;
-    }
-
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
-        color: black;
+        background-color: #e0f7fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
+        border: 1px solid #b3e0f2;
+        padding: 12px 15px;
         text-align: left;
     }
 
     th {
-        background-color: #343a40;
+        background-color: #5f5d9c;
         color: #fff;
     }
-
-    tbody tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    .btn-link {
-        color: #007bff;
-        text-decoration: underline;
-        cursor: pointer;
-    }
-
-    .reply-container {
-        margin-top: 10px;
-        display: none;
-    }
-
-    .form-control {
-        width: 100%;
-        padding: 12px;
-        box-sizing: border-box;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 12px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        color: #fff;
-        padding: 12px 14px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-        .btn-primary:hover {
-            background-color: lightblue;
-        }
 
     td {
-        background-color: #8faebd;
+        background-color: #b5c0d0;
+    }
+
+    tr:nth-child(even) {
+        background-color: #bbdefb;
     }
 </style>
-
 <h2>Questions</h2>
 
 <table class="table">

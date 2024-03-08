@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
@@ -33,29 +34,29 @@ namespace UILayer.Controllers
             InsuranceDbContext context = new InsuranceDbContext();
             if (Session["AdminUserId"] != null)
             {
-                // User is authenticated, proceed with the action
+                
                 var customers = context.Customers.ToList();
                 return View(customers);
             }
             else
             {
-                // User is not authenticated, redirect to login or unauthorized page
+               
                 return RedirectToAction("AdminLogin", "Validation");
             }
         }
-        //Action method to get all users
+       
         public ActionResult GetAllUsers()
         {
             InsuranceDbContext context = new InsuranceDbContext();
             if (Session["AdminUserId"] != null)
             {
-                // User is authenticated, proceed with the action
+               
                 var users = context.Customers.ToList();
                 return View(users);
             }
             else
             {
-                // User is not authenticated, redirect to login or unauthorized page
+               
                 return RedirectToAction("AdminLogin", "Validation");
             }
         }
@@ -129,6 +130,30 @@ namespace UILayer.Controllers
                 {
                     policy.StatusCode = PolicyStatus.Approved;
                     context.SaveChanges();
+                    var Eid = context.Customers.SingleOrDefault(e => e.Id == policy.CustomerId);
+                    MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", Eid.Email);
+                    MM.Subject = "Policy Approved✔";
+                    MM.Body = " Your Policy has been Approved successfully..!!" + "\n\n\n" +
+                      $"Policy Numbur     :{policy.PolicyNumber}" +
+                      $"Category              :{policy.Category}" + "\n" +
+                      $"Policy Category:{policy.policycategory}" + "\n" +
+                      $"policy Status    :{policy.StatusCode}" + "\n" +
+                      $"Policy Applied Date:{policy.AppliedDate}" + "\n\n\n\n" +
+                      "For more details please Login into Your Spark Account.....🔐" + "\n" +
+                      "For further assistance, kindly contact our agents" + "\n\n" +
+                      "Puli Kavya    Contact Number:9988776655" + "\n" +
+                      "Suresh Reddy  Contact Number:6655998877" + "\n\n\n\n" +
+                      "Warm regards," + "\n" + "Spark and Allied Insurance Co.Ltd" + "\n" + "🏢 Hyderabad,Telangana";
+
+                    MM.IsBodyHtml = false;
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                    smtpClient.UseDefaultCredentials = true;
+                    smtpClient.Credentials = networkCredential;
+                    smtpClient.Send(MM);
                 }
                 return RedirectToAction("AllAppliedPolicies");
             }
@@ -344,6 +369,35 @@ namespace UILayer.Controllers
             {
                 context.Entry(customer).State = EntityState.Modified;
                 context.SaveChanges();
+
+                MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", customer.Email);
+                MM.Subject = "Updated Deatils Successfully..!!";
+                MM.Body = "Dear Customer," + "\n\n"+
+                
+                "We are pleased to informed you that your details in our portal has been updated successfully!" + "\n\n\n" +
+                "Your updated details"+"\n\n"+
+                $"Full Name      :{customer.FirstName} {customer.LastName}" + "\n" +
+                $"Email Id              :{customer.Email}" + "\n" +
+                $"Phone Number :{customer.PhoneNumber}" + "\n" +
+                $"User Name         :{customer.UserName}" + "\n" +
+                $"Password           :{customer.Password}" + "\n" +
+               
+                $"Updated Time {DateTime.Now}" + "\n\n\n\n" +
+               "For further assistance, kindly contact our agents" + "\n\n" +
+               "Puli Kavya    Contact Number:9988776655" + "\n" +
+               "Suresh Reddy  Contact Number:6655998877" + "\n\n\n\n" +
+               "Warm regards," + "\n" + "Spark and Allied Insurance Co.Ltd" + "\n" + "Hyderabad,Telangana";
+
+                MM.IsBodyHtml = false;
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
+                NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.Credentials = networkCredential;
+                smtpClient.Send(MM);
+
                 return RedirectToAction("GetAllCustomers");
             }
             return View(customer);

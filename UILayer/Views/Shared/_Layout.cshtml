@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,10 +26,7 @@
             display: block;
         }
 
-        /*.body-content {
-            padding: 0px 0px 20px 0px;
-            background-color: #f4f4f4;
-        }*/
+
 
         .jumbotron {
             padding: 1rem 2rem;
@@ -47,36 +43,44 @@
         .navbar-nav {
             margin-left: auto;
         }
+
+        body nav .container {
+            max-width: 1440px;
+            padding: 10px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Insurance Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm p-0 navbar-dark bg-black">
+        <div class="container py-0">
+            <a class="navbar-brand" href="#">
+
+                <img src="~/Content/logo.gif" alt="Content Writer" style="width: 200px">
+            </a>
+           
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+                <ul class="navbar-nav flex-grow-1 justify-content-start">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Sign Up", "CustomerRegistration", "Validation", new { area = "" }, new { @class = "nav-link" })</li>
-
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="loginDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Login
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                            <a class="dropdown-item" href="@Url.Action("AdminLogin", "Validation")">Admin</a>
-                            <a class="dropdown-item" href="@Url.Action("CustomerLogin", "Validation")">Customer</a>
-                        </div>
+                    <li cla>
+                        <a class="nav-link" href="@Url.Action("AdminLogin", "Validation")">Admin</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("CustomerLogin", "Validation")">Customer</a>
                     </li>
                 </ul>
 
                 <ul id="right-nav" class="navbar-nav">
                     <li id="admin-dash">@Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                     <li id="cust-dash">@Html.ActionLink("Dashboard", "Dashboard", "Customer", new { area = "" }, new { @class = "nav-link" })</li>
-                    @*<li>@Html.ActionLink("Logout", "Logout", "Validation", new { area = "" }, new { @class = "nav-link" })</li>*@
+                    
+                   
+                    
                 </ul>
             </div>
         </div>

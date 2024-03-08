@@ -15,20 +15,7 @@ namespace UILayer.Controllers
 {
     public class ValidationController : Controller
     {
-        private readonly AdminInterface adminRepository;
-        private readonly CustomerInterface customerRepository;
-        private readonly InsuranceDbContext context;
-      
-        public ValidationController() :base()
-        {
-            
-        }
-        public ValidationController(AdminInterface adminRepository, CustomerInterface customerRepository)
-        {
-            this.adminRepository = adminRepository;
-            this.customerRepository = customerRepository;
-            this.context = new InsuranceDbContext();
-        }
+    
         // GET: Validation
         public ActionResult Index()
         {
@@ -245,7 +232,6 @@ namespace UILayer.Controllers
 
             if (isCustomer)
             {
-               // var user = customerRepository.GetCustomerByUserName(loginView.UserName);
                InsuranceDbContext dbContext = new InsuranceDbContext();
                 var user=dbContext.Customers.FirstOrDefault(e=>e.UserName==loginView.UserName);
                 Session["CustomerUserId"] = user.Id;
@@ -285,6 +271,7 @@ namespace UILayer.Controllers
             {
              
                 Session["AdminUserId"] = loginView.UserName; // Store user identifier in session
+               
                 return RedirectToAction("Dashboard", "Admin");
             }
             else

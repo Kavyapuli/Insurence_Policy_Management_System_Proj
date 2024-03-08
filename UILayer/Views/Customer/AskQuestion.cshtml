@@ -1,5 +1,4 @@
-﻿
-@model UILayer.Models.QuestionModel
+﻿@model UILayer.Models.QuestionModel
 
 @{
     ViewBag.Title = "AskQuestion";
@@ -11,12 +10,7 @@
 }
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: lightgray;
-        color: #333;
-        margin: 20px;
-    }
+
 
     .navbar-nav.flex-grow-1 {
         display: none;
@@ -37,15 +31,13 @@
     form {
         max-width: 400px;
         margin: 0 auto;
-        background-color: #fff;
+        background-color: transparent;
         padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .form-group {
         margin-bottom: 20px;
+        background-color: transparent;
     }
 
     label {
@@ -58,9 +50,10 @@
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
-        border: 1px solid #ddd;
+        border: 2px solid #ddd;
         border-radius: 4px;
         margin-bottom: 10px;
+        background-color: transparent;
     }
 
     .btn-primary {
@@ -75,27 +68,59 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20201028/pngtree-yellow-question-mark-on-a-light-blue-pastel-background-3d-illustration-image_443913.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height:100vh;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
+
+
+    .right-content {
+        width: 500px;
+        height: 100%;
+        padding: 40px;
+    }
+
+    .heading {
+        position: absolute;
+        color: cadetblue;
+    }
 </style>
+<body>
+    <h2 class="heading">Ask Your Questions here</h2>
 
-<h2>Ask a Question</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    <div class="right-content">
+        @using (Html.BeginForm())
+        {
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Question)
-        @Html.TextBoxFor(model => model.Question, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Question)
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Question)
+                @Html.TextBoxFor(model => model.Question, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Question)
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        }
     </div>
 
 
-    <div class="form-group">
-        <input type="submit" value="Submit" class="btn btn-primary" />
-    </div>
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
+</body>

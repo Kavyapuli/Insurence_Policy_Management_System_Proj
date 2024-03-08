@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using UILayer.Models;
@@ -24,9 +26,6 @@ namespace UILayer.Controllers
 
             return View(policies);
         }
-
-        
-
 
        public List<Policy> AllP()
         {
@@ -54,8 +53,33 @@ namespace UILayer.Controllers
 
                 dbContext.Policies.Add(newPolicy);
                 dbContext.SaveChanges();
-
-                return RedirectToAction("AddPolicySuccess");
+                InsuranceDbContext db = new InsuranceDbContext();
+                List<Customer> customers = db.Customers.ToList();
+                foreach (var i in customers)
+                {
+                    MailMessage MM = new MailMessage("sparkinsurancepolicy@gmail.com", i.Email);
+                    MM.Subject = "New Policy";
+                    MM.Body = $"Dear {i.FirstName} {i.LastName}" + "\n\n" +
+                               "we are adding a new policy" + "\n\n\n" +
+                               $"Policy Number  :{policyViewModel.PolicyNumber}" + "\n" +
+                               $"Category            :{policyViewModel.Category}" + "\n" +
+                               $"Policy Category: {policyViewModel.policycategory}" + "\n\n\n" +
+                               "For more details please Login into Your Spark Account.....🔐" + "\n" +
+                               "For further assistance, kindly contact our agents" + "\n\n" +
+                               "Puli Kavya    Contact Number:9988776655" + "\n" +
+                               "Suresh Reddy  Contact Number:6302539493" + "\n\n\n\n" +
+                               "Warm regards🤗," + "\n" + "Spark and Allied Insurance Co.Ltd" + "\n" + "🏢 Hyderabad,Telangana";
+                    MM.IsBodyHtml = false;
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    NetworkCredential networkCredential = new NetworkCredential("sparkinsurancepolicy@gmail.com", "rtfp wcpa wlbr vibq");
+                    smtpClient.UseDefaultCredentials = true;
+                    smtpClient.Credentials = networkCredential;
+                    smtpClient.Send(MM);
+                }
+                    return RedirectToAction("AddPolicySuccess");
             }
 
             return View(policyViewModel);

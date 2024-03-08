@@ -39,6 +39,11 @@
                 .sidebar a:hover {
                     background-color: #555;
                     transform: scale(1.05);
+                  
+                }
+                img{
+                    width:120%;
+                    height:130%;
                 }
     </style>
 </head>
@@ -58,7 +63,9 @@
 
     <div class="sidebar">
         <div class="profile-picture">
-            <img src="~/Content/Customer.jpeg" alt="Profile Picture">
+      
+            <img src="~/Content/customer.jpg" alt="Profile Picture">
+
         </div>
         <h3 style="margin-left: 88px;">Customer</h3>
         <a href="@Url.Action("Dashboard", "Customer")" >Dashboard</a>
